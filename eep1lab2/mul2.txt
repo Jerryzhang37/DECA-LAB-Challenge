@@ -1,0 +1,15 @@
+MOV R0, #12  //op1 = 12
+MOV R1, #5 //op2 = 5
+MOV R2, R1 //op2_shifted = op2
+MOV R3, #0
+MOV R4, #0 //sum = 0
+MOV R5  #0
+MOV R0, R0 // if R0 is 0, flagZ is high same as if(op1!=0)
+JEQ 8 // If R0 is 0,flagZ high, jump, end loop ,same as AND R1, R0, #1  this would have been bitwise AND 1 and OP1
+LSR R0, R0, #1 // right shift op1 by 1, stores the result of lsb of op1 in carry flag, which is same as op1 & 1
+JCC 3 // If carry flag is 0, jump 2 lines, note the carry flag is LSB of op1, which is same as the bitwise AND operation with 1
+ADD R4, R4, R2// sum = sum + op2_shifted 
+ADC R5, R5, R3// sum = sum + op2_shifted 
+ADD R2, R2, R2 // left shift op2shifted by 1 
+ADC R3, R3, R3
+JEQ -8// if loop doesn't end 
